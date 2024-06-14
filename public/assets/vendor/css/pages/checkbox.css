@@ -1,0 +1,55 @@
+
+/* CSS Form Modal */
+.form-row {
+  margin-bottom: 15px; /* Jarak antar form */
+}
+
+.form-group label {
+  font-weight: bold; /* Membuat semua label di dalam class form-group menjadi tebal */
+}
+/* End Modal */
+
+.checkbox-container {
+  width: 20%; /* Atur lebar agar setiap checkbox dan labelnya muat dalam satu baris */
+  float: left; /* Float left untuk mengatur agar elemen berbaris secara horizontal */
+}
+
+.row.with-border {
+border-bottom: 1px solid #ccc;
+padding: 5px 0; /* Atur padding secara vertikal (atas dan bawah) */
+margin: 0px; /* Atur margin negatif agar pas di ujung garis */
+}
+
+/* Menghapus garis pada baris terakhir */
+.row.with-border:last-child {
+border-bottom: none;
+}
+
+/* Style untuk kolom Kota/Kabupaten dan Akreditasi */
+.col-md-2 {
+margin-bottom: 5px;
+margin-top: 5px;
+}
+
+/* Style untuk checkbox */
+input[type="checkbox"] {
+margin-right: 5px;
+}
+
+
+/* Button */
+.button {
+display: inline-block;
+padding: 7px 15px;
+font-size: 15px;
+cursor: pointer;
+text-align: center;
+text-decoration: none;
+outline: none;
+color: #fff;
+background-color: #4772bc;
+border: none;
+border-radius: 10px;
+}
+
+.button:hover {background-color: #385890}
