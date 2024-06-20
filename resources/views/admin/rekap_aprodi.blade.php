@@ -1,5 +1,5 @@
 <!-- Kerangka Template Main -->
-@extends('tpl.layout.tplmain')
+@extends('admin.layout.tplmain')
 
 <!-- Title -->
 @section('title', 'DirektoriPT - Rekap Data')

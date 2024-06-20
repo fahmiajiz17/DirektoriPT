@@ -58,17 +58,6 @@
                             <th style="width: 20%;">JUMLAH MAHASISWA</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($impmbkm as $key => $impmbkm)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $impmbkm->tahun }}</td>
-                                <td>{{ $impmbkm->jenis_mbkm }}</td>
-                                <td>{{ $impmbkm->lokasi }}</td>
-                                <td>{{ $impmbkm->jumlah_mahasiswa }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -127,7 +116,36 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
-        new DataTable('#impmbkm');
+        $(document).ready(function() {
+            $('#impmbkm').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('getimpMBKM') }}',
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'tahun',
+                        name: 'tahun'
+                    },
+                    {
+                        data: 'jenis_mbkm',
+                        name: 'jenis_mbkm'
+                    },
+                    {
+                        data: 'lokasi',
+                        name: 'lokasi'
+                    },
+                    {
+                        data: 'jumlah_mahasiswa',
+                        name: 'jumlah_mahasiswa'
+                    }
+                ]
+            });
+        });
     </script>
 
 

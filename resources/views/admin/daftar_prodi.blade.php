@@ -1,5 +1,5 @@
 <!-- Kerangka Template Main -->
-@extends('tpl.layout.tplmain')
+@extends('admin.layout.tplmain')
 
 <!-- Title -->
 @section('title', 'DirektoriPT - Kelola Data')
@@ -132,6 +132,12 @@
             color: white !important;
             /* warna teks putih */
         }
+
+        /* Posisikan tombol pencarian ke kiri atas */
+        div.dataTables_wrapper div.dataTables_filter {
+            float: left;
+            text-align: left;
+        }
     </style>
 
     {{-- DataTables CSS --}}
@@ -148,7 +154,8 @@
     <script>
         $(document).ready(function() {
             $('#daftar_prodi').DataTable({
-                paging: false, // Menonaktifkan pagination
+                "paging": false,
+                "dom": 'f<"clear">rt<"bottom"ilp><"clear">'
             });
         });
     </script>

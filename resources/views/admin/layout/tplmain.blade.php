@@ -12,7 +12,7 @@
     <meta name="description" content="" />
 
     <!-- CSS -->
-    @include('tpl.include.style')
+    @include('admin.include.style')
 
 </head>
 
@@ -23,13 +23,13 @@
         <div class="layout-container">
 
             <!-- Sidebar -->
-            @include('tpl.include.sidebar')
+            @include('admin.include.sidebar')
 
             <!-- Layout container -->
             <div class="layout-page">
 
                 <!-- Header -->
-                @include('tpl.include.header')
+                @include('admin.include.header')
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
@@ -41,7 +41,7 @@
                     </div>
 
                     <!-- Footer -->
-                    @include('tpl.include.footer')
+                    @include('admin.include.footer')
 
                     <div class="content-backdrop fade"></div>
 
@@ -63,7 +63,7 @@
     <!-- / Layout wrapper -->
 
     <!-- JavaScript -->
-    @include('tpl.include.script')
+    @include('admin.include.script')
 
 </body>
 

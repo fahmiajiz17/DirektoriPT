@@ -22,7 +22,6 @@
     <script src="{{ asset('assets/js/cards-actions.js') }}"></script>
 @endsection
 
-<!-- Konten -->
 @section('content')
 
     <!-- Datatable -->
@@ -33,7 +32,8 @@
             <div class="card-action-element">
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item">
-                        <a href="javascript:void(0);" class="card-collapsible"><i class="tf-icons ri-arrow-up-s-line"></i></a>
+                        <a href="javascript:void(0);" class="card-collapsible"><i
+                                class="tf-icons ri-arrow-up-s-line"></i></a>
                     </li>
                     <li class="list-inline-item">
                         <a href="javascript:void(0);" class="card-expand"><i class="tf-icons ri-fullscreen-line"></i></a>
@@ -45,7 +45,6 @@
             </div>
         </div>
         <div class="collapse show">
-
             <!-- Card -->
             <div class="card-body">
                 <table id="imp4a" class="table table-bordered table-hover" style="font-size: 14px;">
@@ -58,17 +57,6 @@
                             <th style="width: 20%;">NAMA DOSEN PENGAMPU</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($imp4a as $key => $imp4a)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $imp4a->tahun }}</td>
-                                <td>{{ $imp4a->jenis4a }}</td>
-                                <td>{{ $imp4a->nama_matakuliah }}</td>
-                                <td>{{ $imp4a->dosen_pengampu }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -127,8 +115,35 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
-        new DataTable('#imp4a');
+        $(document).ready(function() {
+            $('#imp4a').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('getimp4a') }}',
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'tahun',
+                        name: 'tahun'
+                    },
+                    {
+                        data: 'jenis4a',
+                        name: 'jenis4a'
+                    },
+                    {
+                        data: 'nama_matakuliah',
+                        name: 'nama_matakuliah'
+                    },
+                    {
+                        data: 'dosen_pengampu',
+                        name: 'dosen_pengampu'
+                    }
+                ]
+            });
+        });
     </script>
-
-
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class HomepageController extends Controller
 {
@@ -183,21 +184,44 @@ class HomepageController extends Controller
 
     public function listpt()
     {
-        $listpt = DB::table('pt')
-            ->select('pt.kode_pt', 'pt.nama_pt', 'pt.peringkat_aipt',
-                    'pt.alamat', 'pt.jenis_pt', 'pt.kota_kabupaten', 'pt.provinsi', 
-                    'ref_wil_kota_kab.nama_kota_kab', 'ref_wil_provinsi.nama_provinsi')
+        return view('homepage.listPT');
+    }
+
+    public function getlistpt()
+    {
+        $query = DB::table('pt')
+            ->select(
+                'pt.kode_pt',
+                'pt.nama_pt',
+                'pt.peringkat_aipt',
+                'pt.alamat',
+                'pt.jenis_pt',
+                'pt.kota_kabupaten',
+                'pt.provinsi',
+                'ref_wil_kota_kab.nama_kota_kab',
+                'ref_wil_provinsi.nama_provinsi'
+            )
             ->selectRaw('COUNT(prodi.kode_prodi) as total_prodi')
-            ->leftjoin('prodi', 'pt.kode_pt', '=', 'prodi.kode_pt')
+            ->leftJoin('prodi', 'pt.kode_pt', '=', 'prodi.kode_pt')
             ->join('ref_wil_kota_kab', 'pt.kota_kabupaten', '=', 'ref_wil_kota_kab.kode_kotakab_dagri')
             ->join('ref_wil_provinsi', 'pt.provinsi', '=', 'ref_wil_provinsi.kode_awal_provinsi_dagri')
             ->where('pt.status_pt', 'A')
-            ->groupBy('pt.kode_pt', 'pt.nama_pt', 'pt.peringkat_aipt',
-                    'pt.alamat', 'pt.jenis_pt', 'pt.kota_kabupaten', 'pt.provinsi', 
-                    'ref_wil_kota_kab.nama_kota_kab', 'ref_wil_provinsi.nama_provinsi')
+            ->groupBy(
+                'pt.kode_pt',
+                'pt.nama_pt',
+                'pt.peringkat_aipt',
+                'pt.alamat',
+                'pt.jenis_pt',
+                'pt.kota_kabupaten',
+                'pt.provinsi',
+                'ref_wil_kota_kab.nama_kota_kab',
+                'ref_wil_provinsi.nama_provinsi'
+            )
             ->get();
 
-        return view('homepage.listPT', compact('listpt'));
+        return DataTables::of($query)
+            ->addIndexColumn()
+            ->make(true);
     }
 
     public function sebaranpt()
@@ -260,53 +284,100 @@ class HomepageController extends Controller
 
     public function kerjasamapt()
     {
-        $kerjasama = DB::table('new_kerjasamapt')
-            ->select('pt.nama_pt', 'status_kerjasama', 'jenis_kerjasama',
-            'waktukerjasama_awal', 'waktukerjasama_akhir')
-            ->join('pt', 'new_kerjasamapt.kodept', '=', 'pt.kode_pt')
-            ->get()
-            ->map(function ($item) {
-                if ($item->status_kerjasama === 'DN') {
-                    $item->status_kerjasama = 'Dalam Negeri';
-                } elseif ($item->status_kerjasama === 'LN') {
-                    $item->status_kerjasama = 'Luar Negeri';
-                }
-    
-                $item->waktukerjasama_awal = Carbon::parse($item->waktukerjasama_awal)->translatedFormat('d F Y');
-                $item->waktukerjasama_akhir = Carbon::parse($item->waktukerjasama_akhir)->translatedFormat('d F Y');
-                return $item;
-            });
+        return view('homepage.kerjasamaPT');
+    }
 
-        return view('homepage.kerjasamaPT', compact('kerjasama'));
+    public function getkerjasamapt(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = DB::table('new_kerjasamapt')
+                ->select(
+                    'pt.nama_pt',
+                    'status_kerjasama',
+                    'jenis_kerjasama',
+                    'waktukerjasama_awal',
+                    'waktukerjasama_akhir'
+                )
+                ->join('pt', 'new_kerjasamapt.kodept', '=', 'pt.kode_pt')
+                ->get()
+                ->map(function ($item) {
+                    if ($item->status_kerjasama === 'DN') {
+                        $item->status_kerjasama = 'Dalam Negeri';
+                    } elseif ($item->status_kerjasama === 'LN') {
+                        $item->status_kerjasama = 'Luar Negeri';
+                    }
+
+                    $item->waktukerjasama_awal = Carbon::parse($item->waktukerjasama_awal)->translatedFormat('d F Y');
+                    $item->waktukerjasama_akhir = Carbon::parse($item->waktukerjasama_akhir)->translatedFormat('d F Y');
+                    $item->masa_waktu = $item->waktukerjasama_awal . ' s.d ' . $item->waktukerjasama_akhir;
+                    return $item;
+                });
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->make(true);
+        }
     }
 
     public function inovasipt()
     {
-        $inovasipt = DB::table('new_inovasipt')
-            ->select('pt.nama_pt', 'judul', 'tahun', 'new_inovasi_jenis.keterangan_inovasi', 'jenis_sdm')
-            ->join('pt', 'new_inovasipt.kodept', '=', 'pt.kode_pt')
-            ->join('new_inovasi_jenis', 'new_inovasipt.jenis_inovasi', '=', 'new_inovasi_jenis.kode_inovasi')
-            ->get();
+        return view('homepage.inovasiPT');
+    }
 
-        return view('homepage.inovasiPT', compact('inovasipt'));
+    public function getinovasipt(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
+                $data = DB::table('new_inovasipt')
+                    ->select('pt.nama_pt', 'judul', 'tahun', 'new_inovasi_jenis.keterangan_inovasi', 'jenis_sdm')
+                    ->join('pt', 'new_inovasipt.kodept', '=', 'pt.kode_pt')
+                    ->join('new_inovasi_jenis', 'new_inovasipt.jenis_inovasi', '=', 'new_inovasi_jenis.kode_inovasi')
+                    ->get()
+                    ->map(function ($item) {
+                        $item->jenis_inovasi = nl2br($item->keterangan_inovasi . "\n" . $item->jenis_sdm);
+                        return $item;
+                    });
+
+                return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->rawColumns(['jenis_inovasi']) // Allow HTML rendering for jenis_inovasi column
+                    ->make(true);
+            } catch (\Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+        }
+
+        return response()->json(['message' => 'Request is not AJAX'], 400);
     }
 
     public function imp4a()
     {
-        $imp4a = DB::table('akademik_implementasi4a')
-            ->select('tahun', 'jenis4a', 'nama_matakuliah', 'dosen_pengampu')
-            ->get();
+        return view('homepage.imp4a');
+    }
 
-        return view('homepage.imp4a', compact('imp4a'));
+    public function getimp4a()
+    {
+        $imp4a = DB::table('akademik_implementasi4a')
+            ->select('tahun', 'jenis4a', 'nama_matakuliah', 'dosen_pengampu');
+
+        return DataTables::of($imp4a)
+            ->addIndexColumn()
+            ->make(true);
     }
 
     public function impMBKM()
     {
-        $impmbkm = DB::table('akademik_mbkm')
-            ->select('tahun', 'jenis_mbkm', 'lokasi', 'jumlah_mahasiswa')
-            ->get();
+        return view('homepage.impMBKM');
+    }
 
-        return view('homepage.impMBKM', compact('impmbkm'));
+    public function getimpMBKM()
+    {
+        $impmbkm = DB::table('akademik_mbkm')
+            ->select('tahun', 'jenis_mbkm', 'lokasi', 'jumlah_mahasiswa');
+
+        return DataTables::of($impmbkm)
+            ->addIndexColumn()
+            ->make(true);
     }
 
     public function pemantauanTM()

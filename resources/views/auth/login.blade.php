@@ -1,5 +1,4 @@
-<!-- Kerangka Template Main -->
-@extends('auth.tplmain')
+@extends('auth.layout.tplmain')
 
 <!-- Title -->
 @section('title', 'DirektoriPT - Login')
@@ -43,7 +42,7 @@
         <div class="card-body mt-1">
             <h4 class="mb-1">Welcome to DirektoriPT 👋</h4>
             <p class="mb-5">Silahkan masuk ke akun Anda untuk mengakses
-            DirektoriPT LLDIKTI Wilayah 4</p>
+                DirektoriPT LLDIKTI Wilayah 4</p>
 
             @if (\Session::has('message'))
                 <div class="alert alert-danger">
@@ -55,6 +54,7 @@
                 @csrf
                 <div class="form-floating form-floating-outline mb-5">
                     <input type="text" class="form-control" id="email" name="email"
+                        value="{{ old('email', Cookie::get('email') ? Cookie::get('email') : '') }}"
                         placeholder="Masukkan email Anda" autofocus />
                     <label for="email">Email</label>
                 </div>
@@ -63,6 +63,7 @@
                         <div class="input-group input-group-merge">
                             <div class="form-floating form-floating-outline">
                                 <input type="password" id="password" class="form-control" name="password"
+                                    value="{{ old('password', Cookie::get('password') ? Cookie::get('password') : '') }}"
                                     placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                     aria-describedby="password" />
                                 <label for="password">Password</label>
@@ -73,7 +74,7 @@
                 </div>
                 <div class="mb-5 d-flex justify-content-between mt-5">
                     <div class="form-check mt-2">
-                        <input class="form-check-input" type="checkbox" id="remember-me" />
+                        <input class="form-check-input" type="checkbox" id="remember-me" name="remember" />
                         <label class="form-check-label" for="remember-me"> Remember Me </label>
                     </div>
                 </div>

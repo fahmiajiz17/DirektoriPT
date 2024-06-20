@@ -323,7 +323,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('pengaturan_akun') }}">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-2">
                                         <div class="avatar avatar-online">
@@ -341,22 +341,21 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
-                                <i class="ri-user-3-line ri-22px me-3"></i><span class="align-middle">My
-                                    Profile</span>
+                            <a class="dropdown-item" href="{{ route('user_profile') }}">
+                                <i class="ri-user-3-line ri-22px me-3"></i><span class="align-middle">Profile</span>
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('pengaturan_akun') }}">
                                 <i class="ri-settings-4-line ri-22px me-3"></i><span
-                                    class="align-middle">Settings</span>
+                                    class="align-middle">Pengaturan</span>
                             </a>
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('FAQ') }}">
                                 <i class="ri-question-line ri-22px me-3"></i><span class="align-middle">FAQ</span>
                             </a>
                         </li>

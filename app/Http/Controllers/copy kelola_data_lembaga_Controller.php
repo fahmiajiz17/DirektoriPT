@@ -10,32 +10,8 @@ class kelola_data_lembaga_Controller extends Controller
 {
     public function kelola_data_pt()
     {
-        // Mengambil data kota/kabupaten
-        $kotaKabupaten = DB::table('ref_wil_kota_kab')
-            ->select('kode_kotakab_dagri', 'nama_kota_kab')
-            ->get();
-    
-        // Mengambil data provinsi
-        $provinsi = DB::table('ref_wil_provinsi')
-            ->select('kode_awal_provinsi_dagri', 'nama_provinsi')
-            ->get();
-    
-        // Mengambil data kecamatan
-        $kecamatan = DB::table('ref_wilayah')
-            ->select('id_wil', 'nm_wil')
-            ->where('id_level_wil', '3') // Filter berdasarkan id_level_wil
-            ->where(function ($query) {
-                $query->where('id_wil', 'LIKE', '02%') // Filter berdasarkan awalan id_wil
-                    ->orWhere('id_wil', 'LIKE', '03%');
-            })
-            ->get();
-    
-        return view('admin.kelola_data_pt', compact('kotaKabupaten', 'provinsi', 'kecamatan'));
-    }
-    
-    public function getkelola_data_pt()
-    {
-        $query = DB::table('pt')
+        // Mengambil data perguruan tinggi
+        $pt = DB::table('pt')
             ->select(
                 'pt.kode_pt',
                 'pt.nama_pt',
@@ -43,14 +19,33 @@ class kelola_data_lembaga_Controller extends Controller
                 'pt.status_pt',
                 'pt.kota_kabupaten',
                 'ref_wil_kota_kab.nama_kota_kab',
+                'pt.pimpinan_pts',
+                'pt.hp_pimpinan',
+                'pt.wakil_pim_1',
+                'pt.wakil_pim_2',
+                'pt.wakil_pim_3',
+                'pt.wakil_pim_4',
                 'pt.status_aipt',
+                'pt.peringkat_aipt',
                 'pt.nilai_aipt',
                 'pt.no_sk_aipt',
                 'pt.tgl_sk_aipt',
                 'pt.tgl_kadaluarsa_aipt',
+                'pt.nama_pt_singkatan',
+                'pt.no_sk_pendirianpt',
+                'pt.tgl_sk_pendirianpt',
+                'pt.alamat',
+                'pt.provinsi',
+                'ref_wil_provinsi.nama_provinsi',
+                'pt.kode_pos',
+                'pt.telepon',
+                'pt.fax',
+                'pt.email',
+                'pt.website',
+                'pt.id_kec'
             )
             ->selectRaw('COUNT(prodi.kode_prodi) as total_prodi')
-            ->leftJoin('prodi', 'pt.kode_pt', '=', 'prodi.kode_pt')
+            ->leftjoin('prodi', 'pt.kode_pt', '=', 'prodi.kode_pt')
             ->join('ref_wil_kota_kab', 'pt.kota_kabupaten', '=', 'ref_wil_kota_kab.kode_kotakab_dagri')
             ->join('ref_wil_provinsi', 'pt.provinsi', '=', 'ref_wil_provinsi.kode_awal_provinsi_dagri')
             ->where('pt.status_pt', 'A')
@@ -61,40 +56,60 @@ class kelola_data_lembaga_Controller extends Controller
                 'pt.status_pt',
                 'pt.kota_kabupaten',
                 'ref_wil_kota_kab.nama_kota_kab',
+                'pt.pimpinan_pts',
+                'pt.hp_pimpinan',
+                'pt.wakil_pim_1',
+                'pt.wakil_pim_2',
+                'pt.wakil_pim_3',
+                'pt.wakil_pim_4',
                 'pt.status_aipt',
+                'pt.peringkat_aipt',
                 'pt.nilai_aipt',
                 'pt.no_sk_aipt',
                 'pt.tgl_sk_aipt',
                 'pt.tgl_kadaluarsa_aipt',
+                'pt.nama_pt_singkatan',
+                'pt.no_sk_pendirianpt',
+                'pt.tgl_sk_pendirianpt',
+                'pt.alamat',
+                'pt.provinsi',
+                'ref_wil_provinsi.nama_provinsi',
+                'pt.kode_pos',
+                'pt.telepon',
+                'pt.fax',
+                'pt.email',
+                'pt.website',
+                'pt.id_kec'
             )
             ->get();
-    
-        $data = DataTables::of($query)
-            ->addIndexColumn()
-            ->addColumn('aksi', function ($row) {
-                return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal' . $row->kode_pt . '">Edit</button>';
+
+        // Mengubah peringkat_aipt "-" menjadi "Tidak Terakreditasi"
+        $pt->transform(function ($pt) {
+            $pt->peringkat_aipt = $pt->peringkat_aipt == '-' ? 'Tidak Terakreditasi' : $pt->peringkat_aipt;
+            return $pt;
+        });
+
+        // Mengambil data kota/kabupaten
+        $kotaKabupaten = DB::table('ref_wil_kota_kab')
+            ->select('kode_kotakab_dagri', 'nama_kota_kab')
+            ->get();
+
+        // Mengambil data provinsi
+        $provinsi = DB::table('ref_wil_provinsi')
+            ->select('kode_awal_provinsi_dagri', 'nama_provinsi')
+            ->get();
+
+        // Mengambil data kecamatan
+        $kecamatan = DB::table('ref_wilayah')
+            ->select('id_wil', 'nm_wil')
+            ->where('id_level_wil', '3') // Filter berdasarkan id_level_wil
+            ->where(function ($query) {
+                $query->where('id_wil', 'LIKE', '02%') // Filter berdasarkan awalan id_wil
+                    ->orWhere('id_wil', 'LIKE', '03%');
             })
-            ->addColumn('modal', function ($pt) {
-                return view('admin.kelola_data_pt_modal', compact('pt'))->render();
-            })
-            ->addColumn('id_sp', function ($row) {
-                return '<a href="#"><i class="fa-solid fa-check" style="color: #63E6BE;"></i></a>';
-            })
-            ->editColumn('peringkat_aipt', function ($row) {
-                $peringkat = $row->peringkat_aipt == '-' ? 'Tidak Terakreditasi' : $row->peringkat_aipt;
-                if ($peringkat != 'Tidak Terakreditasi') {
-                    return $peringkat . ' -<a href="#"> history</a>';
-                } else {
-                    return $peringkat;
-                }
-            })
-            ->editColumn('nama_pt', function ($row) {
-                return '<a href="' . route('daftar_prodi', ['kode_pt' => $row->kode_pt]) . '">' . $row->nama_pt . '</a>';
-            })
-            ->rawColumns(['aksi', 'modal', 'id_sp', 'peringkat_aipt', 'nama_pt'])
-            ->make(true);
-    
-        return $data;
+            ->get();
+
+        return view('admin.kelola_data_pt', compact('pt', 'kotaKabupaten', 'provinsi', 'kecamatan'));
     }
 
     public function update_data_pt(Request $request, $kode_pt)
@@ -103,6 +118,12 @@ class kelola_data_lembaga_Controller extends Controller
         DB::table('pt')
             ->where('kode_pt', $kode_pt)
             ->update([
+                'pimpinan_pts' => $request->input('pimpinan'),
+                'hp_pimpinan' => $request->input('hp_pimpinan'),
+                'wakil_pim_1' => $request->input('wakil_pim_1'),
+                'wakil_pim_2' => $request->input('wakil_pim_2'),
+                'wakil_pim_3' => $request->input('wakil_pim_3'),
+                'wakil_pim_4' => $request->input('wakil_pim_4'),
                 'status_aipt' => $request->input('status_aipt'),
                 'peringkat_aipt' => $request->input('peringkat_aipt'),
                 'nilai_aipt' => $request->input('nilai_aipt'),

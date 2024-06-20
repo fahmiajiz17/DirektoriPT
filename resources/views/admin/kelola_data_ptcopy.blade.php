@@ -68,7 +68,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Data akan diisi oleh DataTables -->
+                        @foreach ($pt as $key => $pt)
+                            <tr>
+                                <td>{{ $key + 1 }}</td>
+                                <td>{{ $pt->kode_pt }}</td>
+                                <td>
+                                    <a href="{{ route('daftar_prodi', ['kode_pt' => $pt->kode_pt]) }}">{{ $pt->nama_pt }}</a>
+                                </td>
+                                <td>
+                                    @if ($pt->peringkat_aipt != 'Tidak Terakreditasi')
+                                        {{ $pt->peringkat_aipt }} -<a href="#"> history</a>
+                                    @else
+                                        {{ $pt->peringkat_aipt }}
+                                    @endif
+                                </td>
+                                <td>{{ $pt->total_prodi }}</td>
+                                <td>{{ $pt->nama_kota_kab }}</td>
+                                <td>{{ $pt->status_pt }}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" data-toggle="modal"
+                                        data-target="#editModal{{ $pt->kode_pt }}">Edit</button>
+                                </td>
+                                <td>
+                                    <a href="#"><i class="fa-solid fa-check" style="color: #63E6BE;"></i></a>
+                                </td>
+                            </tr>
+                            <!-- Include Modal Edit -->
+                            @include('admin.kelola_data_pt_modal')
+                            <!-- End Include Modal Edit -->
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -76,10 +104,6 @@
     </div>
     <!-- End Datatable -->
 
-    <!-- Modal Container -->
-    <div id="modal-container">
-        <!-- Modals will be appended here -->
-    </div>
 
     <style>
         /* Bootstrap CSS untuk tabel */
@@ -120,12 +144,6 @@
             color: white !important;
             /* warna teks putih */
         }
-
-        /* Posisikan tombol pencarian ke kiri atas */
-        div.dataTables_wrapper div.dataTables_filter {
-            float: left;
-            text-align: left;
-        }
     </style>
 
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -135,38 +153,7 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            var table = $('#pt').DataTable({
-                "processing": true,
-                "serverSide": true,
-                "paging": false, // Nonaktifkan pagination
-                "ajax": "{{ route('getkelola_data_pt') }}",
-                "columns": [
-                    { "data": "DT_RowIndex", "orderable": false, "searchable": false },
-                    { "data": "kode_pt" },
-                    { "data": "nama_pt" },
-                    { "data": "peringkat_aipt" },
-                    { "data": "total_prodi" },
-                    { "data": "nama_kota_kab" },
-                    { "data": "status_pt" },
-                    { "data": "aksi", "orderable": false, "searchable": false },
-                    { "data": "id_sp", "orderable": false, "searchable": false }
-                ],
-                "dom": 'f<"clear">rt<"bottom"ilp><"clear">'
-            });
-
-            table.on('draw', function() {
-                // Clear the modal container
-                $('#modal-container').empty();
-                
-                // Append the modals to the container
-                table.ajax.json().data.forEach(function(row) {
-                    $('#modal-container').append(row.modal);
-                });
-            });
-        });
+        new DataTable('#pt');
     </script>
 
 @endsection
-
-

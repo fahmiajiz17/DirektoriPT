@@ -1,5 +1,5 @@
 <!-- Kerangka Template Main -->
-@extends('tpl.layout.tplmain')
+@extends('admin.layout.tplmain')
 
 <!-- Title -->
 @section('title', 'DirektoriPT - Kelola Data')
@@ -64,15 +64,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($prodi as $index => $prodi)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $prodi->kode_prodi }}</td>
-                                <td>{{ $prodi->nama_prodi }}</td>
-                                <td>{{ $prodi->nm_jenj_didik }}</td>
-                                <td>{{ $prodi->nama_pt }}</td>
-                            </tr>
-                        @endforeach
+                        <!-- Data will be loaded by DataTables via AJAX -->
                     </tbody>
                 </table>
             </div>
@@ -109,20 +101,51 @@
         }
     </style>
 
-    {{-- DataTables CSS --}}
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-    {{-- JQuery --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {{-- Bootstrap JS --}}
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    {{-- DataTables JS --}}
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
-        new DataTable('#prodi');
+        $(document).ready(function() {
+            $('#prodi').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('getkelola_data_prodi') }}',
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'kode_prodi',
+                        name: 'kode_prodi'
+                    },
+                    {
+                        data: 'nama_prodi',
+                        name: 'nama_prodi'
+                    },
+                    {
+                        data: 'nm_jenj_didik',
+                        name: 'nm_jenj_didik'
+                    },
+                    {
+                        data: 'nama_pt',
+                        name: 'nama_pt'
+                    }
+                ],
+                columnDefs: [{
+                    targets: 0,
+                    render: function(data, type, full, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                }]
+            });
+        });
     </script>
+
 
 @endsection
 {{-- End Konten --}}

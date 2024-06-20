@@ -169,4 +169,24 @@ class AdminController extends Controller
             'rekap', 'totalAkred', 'total_semua_akred')
         );
     }
+
+    public function pengaturan_akun()
+    {
+        return view('admin.profile.pengaturan_akun');
+    }
+
+    public function keamanan_akun()
+    {
+        return view('admin.profile.keamanan_akun');
+    }
+
+    public function user_profile()
+    {
+        return view('admin.profile.user_profile');
+    }
+
+    public function FAQ()
+    {
+        return view('admin.profile.FAQ');
+    }
 }

@@ -33,7 +33,8 @@
             <div class="card-action-element">
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item">
-                        <a href="javascript:void(0);" class="card-collapsible"><i class="tf-icons ri-arrow-up-s-line"></i></a>
+                        <a href="javascript:void(0);" class="card-collapsible"><i
+                                class="tf-icons ri-arrow-up-s-line"></i></a>
                     </li>
                     <li class="list-inline-item">
                         <a href="javascript:void(0);" class="card-expand"><i class="tf-icons ri-fullscreen-line"></i></a>
@@ -58,17 +59,6 @@
                             <th style="width: 17%;">MASA WAKTU</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($kerjasama as $key => $kspt)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $kspt->nama_pt }}</td>
-                                <td>{{ $kspt->status_kerjasama }}</td>
-                                <td>{{ $kspt->jenis_kerjasama }}</td>
-                                <td>{{ $kspt->waktukerjasama_awal }} s.d {{ $kspt->waktukerjasama_akhir }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -127,8 +117,33 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
-        new DataTable('#kspt');
+        $(document).ready(function() {
+            $('#kspt').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('getkerjasamaPT') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'nama_pt',
+                        name: 'nama_pt'
+                    },
+                    {
+                        data: 'status_kerjasama',
+                        name: 'status_kerjasama'
+                    },
+                    {
+                        data: 'jenis_kerjasama',
+                        name: 'jenis_kerjasama'
+                    },
+                    {
+                        data: 'masa_waktu',
+                        name: 'masa_waktu'
+                    }
+                ]
+            });
+        });
     </script>
-
-
 @endsection

@@ -26,46 +26,59 @@ use App\Http\Controllers\validasi_data_Controller;
 
 // Route Main
 Route::get('login', [MainController::class, 'index'])->name('login');
-Route::post('postlogin', [MainController::class, 'login'])->name('postlogin'); 
+Route::post('postlogin', [MainController::class, 'postlogin'])->name('postlogin');
 Route::get('signup', [MainController::class, 'signup'])->name('registration');
-Route::post('postsignup', [MainController::class, 'signupsave'])->name('postsignup'); 
+Route::post('postsignup', [MainController::class, 'postsignup'])->name('postsignup');
 Route::get('signout', [MainController::class, 'signout'])->name('signout');
 
 // Route Homepage
 Route::get('/', [HomepageController::class, 'index'])->name('dashboard_homepage');
 Route::get('listPT', [HomepageController::class, 'listpt'])->name('listPT');
+Route::get('getlistPT', [HomepageController::class, 'getlistpt'])->name('getlistPT');
 Route::get('sebaranPT', [HomepageController::class, 'sebaranpt'])->name('sebaranPT');
 Route::get('kerjasamaPT', [HomepageController::class, 'kerjasamapt'])->name('kerjasamaPT');
+Route::get('getkerjasamaPT', [HomepageController::class, 'getkerjasamapt'])->name('getkerjasamaPT');
 Route::get('inovasiPT', [HomepageController::class, 'inovasipt'])->name('inovasiPT');
+Route::get('getinovasiPT', [HomepageController::class, 'getinovasipt'])->name('getinovasiPT');
 Route::get('imp4a', [HomepageController::class, 'imp4a'])->name('imp4a');
+Route::get('getimp4a', [HomepageController::class, 'getimp4a'])->name('getimp4a');
 Route::get('impMBKM', [HomepageController::class, 'impMBKM'])->name('impMBKM');
+Route::get('getimpMBKM', [HomepageController::class, 'getimpMBKM'])->name('getimpMBKM');
 Route::get('pemantauanTM', [HomepageController::class, 'pemantauanTM'])->name('pemantauanTM');
 
 // Route Grup Admin
 Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
     Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard_admin');
 
-    // Route Kelola Data Lembaga
-    Route::get('kelola_data_pt', [kelola_data_lembaga_Controller::class,'kelola_data_pt'])->name('kelola_data_pt');
-    Route::get('kelola_data_pt/data', [kelola_data_lembaga_Controller::class, 'getData'])->name('kelola_data_pt.data');
-    Route::put('update_data_pt/{kode_pt}', [kelola_data_lembaga_Controller::class,'update_data_pt'])->name('update_data_pt');
-    Route::get('daftar_prodi', [kelola_data_lembaga_Controller::class, 'daftar_prodi'])->name('daftar_prodi');
-    Route::put('update_data_prodi/{kode_prodi}', [kelola_data_lembaga_Controller::class,'update_data_prodi'])->name('update_data_prodi');
+    // Route Profile Admin
+    Route::get('pengaturan_akun', [AdminController::class, 'pengaturan_akun'])->name('pengaturan_akun');
+    Route::get('keamanan_akun', [AdminController::class, 'keamanan_akun'])->name('keamanan_akun');
+    Route::get('user_profile', [AdminController::class, 'user_profile'])->name('user_profile');
+    Route::get('FAQ', [AdminController::class, 'FAQ'])->name('FAQ');
 
-    Route::get('kelola_data_prodi', [kelola_data_lembaga_Controller::class,'kelola_data_prodi'])->name('kelola_data_prodi');
-    
+    // Route Kelola Data Lembaga
+    Route::get('kelola_data_pt', [kelola_data_lembaga_Controller::class, 'kelola_data_pt'])->name('kelola_data_pt');
+    Route::get('getkelola_data_pt', [kelola_data_lembaga_Controller::class, 'getkelola_data_pt'])->name('getkelola_data_pt');
+    Route::get('kelola_data_pt/data', [kelola_data_lembaga_Controller::class, 'getData'])->name('kelola_data_pt.data');
+    Route::put('update_data_pt/{kode_pt}', [kelola_data_lembaga_Controller::class, 'update_data_pt'])->name('update_data_pt');
+    Route::get('daftar_prodi', [kelola_data_lembaga_Controller::class, 'daftar_prodi'])->name('daftar_prodi');
+    Route::put('update_data_prodi/{kode_prodi}', [kelola_data_lembaga_Controller::class, 'update_data_prodi'])->name('update_data_prodi');
+
+    Route::get('kelola_data_prodi', [kelola_data_lembaga_Controller::class, 'kelola_data_prodi'])->name('kelola_data_prodi');
+    Route::get('getkelola_data_prodi', [kelola_data_lembaga_Controller::class, 'getkelola_data_prodi'])->name('getkelola_data_prodi');
+
     // Route Rekap Data
     Route::get('rekap_apt', [rekapAPT_Controller::class, 'rekap_apt'])->name('rekap_apt');
     Route::post('proses-filter-apt', [rekapAPT_Controller::class, 'prosesFilterAPT'])->name('prosesFilterAPT');
-    
+
 
     Route::get('rekap_aprodi', [rekapAProdi_Controller::class, 'rekap_aprodi'])->name('rekap_aprodi');
     Route::post('proses-filter-aprodi', [rekapAProdi_Controller::class, 'prosesFilterAProdi'])->name('prosesFilterAProdi');
 
     // Route Valdasi Data
-    Route::get('validasi_apt', [validasi_data_Controller::class,'validasi_apt'])->name('validasi_apt');
+    Route::get('validasi_apt', [validasi_data_Controller::class, 'validasi_apt'])->name('validasi_apt');
 
-    Route::get('validasi_aprodi', [validasi_data_Controller::class,'validasi_aprodi'])->name('validasi_aprodi');
+    Route::get('validasi_aprodi', [validasi_data_Controller::class, 'validasi_aprodi'])->name('validasi_aprodi');
 });
 
 // Export To Excel

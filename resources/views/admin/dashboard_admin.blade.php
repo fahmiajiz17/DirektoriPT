@@ -1,5 +1,5 @@
 <!-- Kerangka Template Main -->
-@extends('tpl.layout.tplmain')
+@extends('admin.layout.tplmain')
 
 <!-- Title -->
 @section('title', 'DirektoriPT - Admin')
@@ -26,7 +26,7 @@
             <div class="card card-hover-border-primary mt-4 mt-lg-0 shadow-none" style="border: 1px solid #c7c7c7;">
                 <div class="bg-label-primary position-relative team-image-box"
                     style="height: 100px; display: flex; justify-content: center; align-items: center;">
-                    <img src="../../assets/img/front-pages/landing-page/campus.png"
+                    <img src="../../assets/img/front-pages/landing-page/campus1.png"
                         class="position-absolute card-img-position bottom-0" alt="human image"
                         style="width: 185px; height: auto;" />
                 </div>
@@ -40,7 +40,7 @@
             <div class="card card-hover-border-danger mt-4 mt-lg-0 shadow-none" style="border: 1px solid #c7c7c7;">
                 <div class="bg-label-danger position-relative team-image-box"
                     style="height: 100px; display: flex; justify-content: center; align-items: center;">
-                    <img src="../../assets/img/front-pages/landing-page/graduation.png"
+                    <img src="../../assets/img/front-pages/landing-page/graduation1.png"
                         class="position-absolute card-img-position bottom-0" alt="human image"
                         style="width: 135px; height: auto;" />
                 </div>
@@ -54,7 +54,7 @@
             <div class="card card-hover-border-success mt-4 mt-lg-0 shadow-none" style="border: 1px solid #c7c7c7;">
                 <div class="bg-label-success position-relative team-image-box"
                     style="height: 100px; display: flex; justify-content: center; align-items: center;">
-                    <img src="../../assets/img/front-pages/landing-page/bentuk.png"
+                    <img src="../../assets/img/front-pages/landing-page/bentuk1.png"
                         class="position-absolute card-img-position bottom-0" alt="human image"
                         style="width: 155px; height: auto;" />
                 </div>
@@ -68,7 +68,7 @@
             <div class="card card-hover-border-info mt-4 mt-lg-0 shadow-none" style="border: 1px solid #c7c7c7;">
                 <div class="bg-label-info position-relative team-image-box"
                     style="height: 100px; display: flex; justify-content: center; align-items: center;">
-                    <img src="../../assets/img/front-pages/landing-page/map.png"
+                    <img src="../../assets/img/front-pages/landing-page/map1.png"
                         class="position-absolute card-img-position bottom-0" alt="human image"
                         style="width: 130px; height: auto;" />
                 </div>
@@ -375,4 +375,4 @@
 
 @endsection
 
-@include('tpl.include.highchart')
+@include('admin.include.highchart')

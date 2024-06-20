@@ -1,15 +1,10 @@
-<!-- Kerangka Template Main -->
 @extends('homepage.layout.tplmain')
 
-<!-- Title -->
 @section('title', 'DirektoriPT - Homepage')
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
-@endsection
-
-@section('page-style')
 @endsection
 
 @section('vendor-script')
@@ -22,10 +17,8 @@
     <script src="{{ asset('assets/js/cards-actions.js') }}"></script>
 @endsection
 
-<!-- Konten -->
 @section('content')
 
-    <!-- Datatable -->
     <div class="card card-action mb-12">
         <div class="card-alert"></div>
         <div class="card-header">
@@ -33,7 +26,8 @@
             <div class="card-action-element">
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item">
-                        <a href="javascript:void(0);" class="card-collapsible"><i class="tf-icons ri-arrow-up-s-line"></i></a>
+                        <a href="javascript:void(0);" class="card-collapsible"><i
+                                class="tf-icons ri-arrow-up-s-line"></i></a>
                     </li>
                     <li class="list-inline-item">
                         <a href="javascript:void(0);" class="card-expand"><i class="tf-icons ri-fullscreen-line"></i></a>
@@ -45,8 +39,6 @@
             </div>
         </div>
         <div class="collapse show">
-
-            <!-- Card -->
             <div class="card-body">
                 <table id="invpt" class="table table-bordered table-hover" style="font-size: 14px;">
                     <thead>
@@ -58,28 +50,12 @@
                             <th style="width: 10%;">TAHUN</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($inovasipt as $key => $invpt)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $invpt->nama_pt }}</td>
-                                <td>{{ $invpt->keterangan_inovasi }} <br> {{ $invpt->jenis_sdm }}</td>
-                                <td>
-                                <a href="#">{{ $invpt->judul }}</a>
-                                    {{-- <a href="{{ route('daftar_prodi', ['kode_pt' => $pt->kode_pt]) }}">{{ $pt->nama_pt }}</a> --}}
-                                </td>
-                                <td>{{ $invpt->tahun }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <!-- End Datatable -->
 
     <style>
-        /* Bootstrap CSS untuk tabel */
         #invpt {
             width: 100%;
             max-width: 100%;
@@ -106,16 +82,12 @@
             border-top: 2px solid rgba(0, 0, 0, 0.125);
         }
 
-        /* CSS untuk mengubah warna teks pagination menjadi hitam */
         .pagination .page-link {
             color: black !important;
-            /* warna teks hitam */
         }
 
-        /* CSS untuk mengubah warna teks pagination menjadi putih saat diklik */
         .pagination .page-item.active .page-link {
             color: white !important;
-            /* warna teks putih */
         }
 
         .top-left {
@@ -130,8 +102,33 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
-        new DataTable('#invpt');
+        $(document).ready(function() {
+            $('#invpt').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('getinovasiPT') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'nama_pt',
+                        name: 'nama_pt'
+                    },
+                    {
+                        data: 'jenis_inovasi',
+                        name: 'jenis_inovasi'
+                    },
+                    {
+                        data: 'judul',
+                        name: 'judul'
+                    },
+                    {
+                        data: 'tahun',
+                        name: 'tahun'
+                    }
+                ]
+            });
+        });
     </script>
-
-
 @endsection

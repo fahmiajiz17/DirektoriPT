@@ -21,7 +21,6 @@
     <script src="{{ asset('assets/js/tables-datatables-advanced.js') }}"></script>
 @endsection
 
-<!-- Konten -->
 @section('content')
 
     <!-- Datatable -->
@@ -45,7 +44,6 @@
             </div>
         </div>
         <div class="collapse show">
-
             <!-- Card -->
             <div class="card-body">
                 <table id="pt" class="table table-bordered table-hover">
@@ -62,30 +60,11 @@
                             <th>Provinsi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($listpt as $key => $pt)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $pt->kode_pt }}</td>
-                                <td>
-                                    <a href="#">{{ $pt->nama_pt }}</a>
-                                    {{-- <a href="{{ route('daftar_prodi', ['kode_pt' => $pt->kode_pt]) }}">{{ $pt->nama_pt }}</a> --}}
-                                </td>
-                                <td>{{ $pt->peringkat_aipt }}</td>
-                                <td>{{ $pt->alamat }}</td>
-                                <td>{{ $pt->jenis_pt }}</td>
-                                <td>{{ $pt->total_prodi }}</td>
-                                <td>{{ $pt->nama_kota_kab }}</td>
-                                <td>{{ $pt->nama_provinsi }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>
     </div>
     <!-- End Datatable -->
-
 
     <style>
         /* Bootstrap CSS untuk tabel */
@@ -141,6 +120,54 @@
     <script>
         $(document).ready(function() {
             $('#pt').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('getlistPT') }}',
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'kode_pt',
+                        name: 'kode_pt'
+                    },
+                    {
+                        data: 'nama_pt',
+                        name: 'nama_pt',
+                        render: function(data, type, row, meta) {
+                            return '<a href="#">' + data + '</a>';
+                        }
+                    },
+                    {
+                        data: 'peringkat_aipt',
+                        name: 'peringkat_aipt'
+                    },
+                    {
+                        data: 'alamat',
+                        name: 'alamat'
+                    },
+                    {
+                        data: 'jenis_pt',
+                        name: 'jenis_pt'
+                    },
+                    {
+                        data: 'total_prodi',
+                        name: 'total_prodi'
+                    },
+                    {
+                        data: 'nama_kota_kab',
+                        name: 'nama_kota_kab'
+                    },
+                    {
+                        data: 'nama_provinsi',
+                        name: 'nama_provinsi'
+                    }
+                ],
+                order: [
+                    [1, 'asc']
+                ],
                 paging: false, // Menonaktifkan paginasi
                 dom: '<"top-left"f>rt<"bottom"i><"clear">',
                 language: {

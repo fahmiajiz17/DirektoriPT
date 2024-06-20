@@ -1,8 +1,7 @@
-<!-- Kerangka Template Main -->
-@extends('auth.tplmain')
+@extends('auth.layout.tplmain')
 
 <!-- Title -->
-@section('title', 'DirektoriPT - Login')
+@section('title', 'DirektoriPT - Registration')
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/@form-validation/form-validation.css') }}" />
@@ -69,6 +68,9 @@
                     <input type="text" class="form-control" id="email_address" name="email"
                         placeholder="Masukkan email yang valid" />
                     <label for="email">Email</label>
+                    @if ($errors->has('email'))
+                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                    @endif
                 </div>
                 <div class="mb-5 form-password-toggle">
                     <div class="input-group input-group-merge">
@@ -77,6 +79,9 @@
                                 placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                 aria-describedby="password" />
                             <label for="password">Password</label>
+                            @if ($errors->has('password'))
+                                <span class="text-danger">{{ $errors->first('password') }}</span>
+                            @endif
                         </div>
                         <span class="input-group-text cursor-pointer"><i class="ri-eye-off-line"></i></span>
                     </div>
@@ -84,10 +89,13 @@
 
                 <div class="mb-5">
                     <div class="form-check mt-2">
-                        <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                        <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" required />
                         <label class="form-check-label" for="terms-conditions">
                             Saya Setuju
                         </label>
+                        @if ($errors->has('terms'))
+                            <span class="text-danger">{{ $errors->first('terms') }}</span>
+                        @endif
                     </div>
                 </div>
                 <button class="btn btn-primary d-grid w-100">Daftar</button>

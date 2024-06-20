@@ -13,7 +13,7 @@
     <meta name="description" content="" />
 
     <!-- CSS -->
-    @include('tpl.include.style')
+    @include('auth.include.style')
 
 </head>
 
@@ -31,7 +31,7 @@
     </div>
 
     <!-- JavaScript -->
-    @include('tpl.include.script')
+    @include('auth.include.script')
 
 </body>
 
