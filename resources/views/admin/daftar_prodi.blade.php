@@ -98,39 +98,19 @@
         #daftar_prodi {
             width: 100%;
             max-width: 100%;
-            margin-bottom: 1rem;
             background-color: transparent;
-            border-collapse: collapse;
+            border-collapse: separate;
             border-spacing: 0;
             border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 10px;
+            /* Menambahkan lengkungan pada sudut tabel */
+            overflow: hidden;
+            /* Agar sudut lengkung terlihat rapi */
         }
 
         #daftar_prodi th,
         #daftar_prodi td {
-            padding: 0.75rem;
-            vertical-align: top;
             border-top: 1px solid rgba(0, 0, 0, 0.125);
-        }
-
-        #daftar_prodi thead th {
-            vertical-align: bottom;
-            border-bottom: 2px solid rgba(0, 0, 0, 0.125);
-        }
-
-        #daftar_prodi tbody+tbody {
-            border-top: 2px solid rgba(0, 0, 0, 0.125);
-        }
-
-        /* CSS untuk mengubah warna teks pagination menjadi hitam */
-        .pagination .page-link {
-            color: black !important;
-            /* warna teks hitam */
-        }
-
-        /* CSS untuk mengubah warna teks pagination menjadi putih saat diklik */
-        .pagination .page-item.active .page-link {
-            color: white !important;
-            /* warna teks putih */
         }
 
         /* Posisikan tombol pencarian ke kiri atas */

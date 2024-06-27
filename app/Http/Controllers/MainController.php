@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Hash;
-use Session;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class MainController extends Controller
 {
@@ -21,69 +21,61 @@ class MainController extends Controller
     {
         // Validasi data yang diterima dari permintaan
         $request->validate([
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required',
         ]);
 
-        // Ambil kredensial dari permintaan
-        $credentials = $request->only('email', 'password');
+        $username = $request->username;
+        $password = $request->password;
 
-        // Periksa apakah checkbox 'remember' dicentang
-        $ingat = $request->has('remember');
+        // Konfigurasi curl untuk mengirim permintaan ke API
+        $curl_handle = curl_init();
+        curl_setopt($curl_handle, CURLOPT_URL, 'https://sisinfo.lldikti4.id/api/restlogin/loginuser/format/json');
+        curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl_handle, CURLOPT_POST, 1);
+        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, [
+            'username' => $username, 'password' => $password
+        ]);
 
-        // Coba login pengguna dengan kredensial dan opsi remember
-        if (Auth::attempt($credentials, $ingat)) {
-            if ($ingat) {
-                Cookie::queue('email', $request->email, 120);
+        $buffer = curl_exec($curl_handle);
+        curl_close($curl_handle);
+        $result = json_decode($buffer);
+
+        // Log API response for debugging
+        Log::info('API Response: ' . print_r($result, true));
+
+        // Cek apakah login berhasil dari API
+        if ($result->error) {
+            // Log pesan kesalahan
+            Log::error('API Login Error: ' . $result->msg);
+            return redirect('/login')->with('message', 'Login gagal: ' . $result->msg);
+        }
+
+        // Jika login berhasil, buat sesi pengguna
+        if ($result->status == 1) {
+            $userData = $result->msg;
+
+            // Simpan informasi pengguna ke sesi
+            session(['userinfo' => $userData]);
+
+            // Autentikasi pengguna ke aplikasi menggunakan session
+            Auth::loginUsingId($userData->id_user);
+
+            // Cek apakah checkbox 'ingat saya' dicentang
+            if ($request->has('remember')) {
+                Cookie::queue('username', $request->username, 120);
                 Cookie::queue('password', $request->password, 120);
             } else {
-                Cookie::queue(Cookie::forget('email'));
+                Cookie::queue(Cookie::forget('username'));
                 Cookie::queue(Cookie::forget('password'));
             }
+
+            // Alihkan ke dashboard admin
             return redirect()->intended('dashboard')->with('message', 'Berhasil masuk!');
         }
 
         // Alihkan kembali dengan pesan kesalahan jika login gagal
         return redirect('/login')->with('message', 'Detail login tidak valid!');
-    }
-
-
-    public function signup()
-    {
-        return view('auth.registration');
-    }
-
-    public function postsignup(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-            'terms' => 'accepted', // Tambahkan ini untuk validasi checkbox
-        ]);
-
-        $data = $request->all();
-        $check = $this->create($data);
-
-        return redirect("dashboard");
-    }
-
-
-    public function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password'])
-        ]);
-    }
-
-    public function dashboard()
-    {
-        if (Auth::check()) {
-            return view('admin.dashboard_admin');
-        }
-        return redirect('/login');
     }
 
     public function signout()
@@ -94,3 +86,23 @@ class MainController extends Controller
         return redirect('login');
     }
 }
+
+// public function signup()
+// {
+//     return view('auth.registration');
+// }
+
+// public function postsignup(Request $request)
+// {
+//     $request->validate([
+//         'name' => 'required',
+//         'email' => 'required|email|unique:users',
+//         'password' => 'required|min:6',
+//         'terms' => 'accepted', // Tambahkan ini untuk validasi checkbox
+//     ]);
+
+//     $data = $request->all();
+//     $check = $this->create($data);
+
+//     return redirect("dashboard");
+// }

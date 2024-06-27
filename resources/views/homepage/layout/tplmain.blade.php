@@ -23,7 +23,8 @@
     @include('homepage.include.header')
 
     <div data-bs-spy="scroll" class="scrollspy-example">
-        <section id="landingTeam" class="section-py bg-body landing-team">
+    <br><br><br><br>
+        <section class="bg-body">
             <div class="container bg-icon-right position-relative">
                 <div class="row gy-lg-5 gy-12 mt-2">
 

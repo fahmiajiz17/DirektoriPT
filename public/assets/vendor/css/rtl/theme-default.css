@@ -2,7 +2,7 @@
 * Pages Mixins
 */
 body {
-  background: #f7f7f9;
+  background: #f4f4f4 !important;
 }
 
 .bg-body {

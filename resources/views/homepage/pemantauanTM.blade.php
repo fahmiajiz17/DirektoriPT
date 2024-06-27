@@ -25,101 +25,81 @@
 <!-- Konten -->
 @section('content')
 
-    <!-- Datatable -->
-    <div class="card card-action mb-12">
-        <div class="card-alert"></div>
-        <div class="card-header">
-            <h5 class="card-action-title mb-0">Pemantauan Tatap Muka</h5>
-            <div class="card-action-element">
-                <ul class="list-inline mb-0">
-                    <li class="list-inline-item">
-                        <a href="javascript:void(0);" class="card-collapsible"><i class="tf-icons ri-arrow-up-s-line"></i></a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="javascript:void(0);" class="card-expand"><i class="tf-icons ri-fullscreen-line"></i></a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="javascript:void(0);" class="card-close"><i class="tf-icons ri-close-line"></i></a>
-                    </li>
-                </ul>
+    <div class="col-xl-12">
+        <!-- Datatable -->
+        <div class="card card-action mb-12">
+            <div class="card-alert"></div>
+            <div class="card-header">
+                <h5 class="card-action-title mb-0">Pemantauan Tatap Muka</h5>
+                <div class="card-action-element">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <a href="javascript:void(0);" class="card-collapsible"><i
+                                    class="tf-icons ri-arrow-up-s-line"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void(0);" class="card-expand"><i
+                                    class="tf-icons ri-fullscreen-line"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void(0);" class="card-close"><i class="tf-icons ri-close-line"></i></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="collapse show">
+            <div class="collapse show">
 
-            <!-- Card -->
-            <div class="card-body">
-                <table id="pemantauanTM" class="table table-bordered table-hover" style="font-size: 14px;">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">NO</th>
-                            <th rowspan="2">PERGURUAN TINGGI</th>
-                            <th colspan="3" style="text-align: center;">PERSENTASE PEMENUHAN</th>
-                        </tr>
-                        <tr>
-                            <th>PERSIAPAN</th>
-                            <th>PELAKSANAAN</th>
-                            <th>PEMANTAUAN</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($pemantauanTM as $key => $pemantauanTM)
+                <!-- Card -->
+                <div class="card-body">
+                    <table id="pemantauanTM" class="table table-bordered" style="font-size: 14px;">
+                        <thead>
                             <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $pemantauanTM->nama_pt }}</td>
-                                {{-- <td>{{ $pemantauanTM-># }}</td>
+                                <th rowspan="2">NO</th>
+                                <th rowspan="2">PERGURUAN TINGGI</th>
+                                <th colspan="3" style="text-align: center;">PERSENTASE PEMENUHAN</th>
+                            </tr>
+                            <tr>
+                                <th>PERSIAPAN</th>
+                                <th>PELAKSANAAN</th>
+                                <th>PEMANTAUAN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pemantauanTM as $key => $pemantauanTM)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $pemantauanTM->nama_pt }}</td>
+                                    {{-- <td>{{ $pemantauanTM-># }}</td>
                                 <td>{{ $pemantauanTM-># }}</td>
                                 <td>{{ $pemantauanTM-># }}</td> --}}
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+        <!-- End Datatable -->
     </div>
-    <!-- End Datatable -->
 
     <style>
         /* Bootstrap CSS untuk tabel */
         #pemantauanTM {
             width: 100%;
             max-width: 100%;
-            margin-bottom: 1rem;
             background-color: transparent;
-            border-collapse: collapse;
+            border-collapse: separate;
             border-spacing: 0;
             border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 10px;
+            /* Menambahkan lengkungan pada sudut tabel */
+            overflow: hidden;
+            /* Agar sudut lengkung terlihat rapi */
         }
 
         #pemantauanTM th,
         #pemantauanTM td {
-            padding: 0.75rem;
-            vertical-align: top;
             border-top: 1px solid rgba(0, 0, 0, 0.125);
-        }
-
-        #pemantauanTM thead th {
-            vertical-align: bottom;
-            border-bottom: 2px solid rgba(0, 0, 0, 0.125);
-        }
-
-        #pemantauanTM tbody+tbody {
-            border-top: 2px solid rgba(0, 0, 0, 0.125);
-        }
-
-        /* CSS untuk mengubah warna teks pagination menjadi hitam */
-        .pagination .page-link {
-            color: black !important;
-            /* warna teks hitam */
-        }
-
-        /* CSS untuk mengubah warna teks pagination menjadi putih saat diklik */
-        .pagination .page-item.active .page-link {
-            color: white !important;
-            /* warna teks putih */
-        }
-
-        .top-left {
-            float: left;
         }
     </style>
 
@@ -135,4 +115,3 @@
 
 
 @endsection
-

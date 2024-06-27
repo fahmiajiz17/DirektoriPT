@@ -19,79 +19,63 @@
 
 @section('content')
 
-    <div class="card card-action mb-12">
-        <div class="card-alert"></div>
-        <div class="card-header">
-            <h5 class="card-action-title mb-0">Data Inovasi Perguruan Tinggi</h5>
-            <div class="card-action-element">
-                <ul class="list-inline mb-0">
-                    <li class="list-inline-item">
-                        <a href="javascript:void(0);" class="card-collapsible"><i
-                                class="tf-icons ri-arrow-up-s-line"></i></a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="javascript:void(0);" class="card-expand"><i class="tf-icons ri-fullscreen-line"></i></a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="javascript:void(0);" class="card-close"><i class="tf-icons ri-close-line"></i></a>
-                    </li>
-                </ul>
+    <div class="col-xl-12">
+        <div class="card card-action mb-12">
+            <div class="card-alert"></div>
+            <div class="card-header">
+                <h5 class="card-action-title mb-0">Data Inovasi Perguruan Tinggi</h5>
+                <div class="card-action-element">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <a href="javascript:void(0);" class="card-collapsible"><i
+                                    class="tf-icons ri-arrow-up-s-line"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void(0);" class="card-expand"><i
+                                    class="tf-icons ri-fullscreen-line"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void(0);" class="card-close"><i class="tf-icons ri-close-line"></i></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="collapse show">
-            <div class="card-body">
-                <table id="invpt" class="table table-bordered table-hover" style="font-size: 14px;">
-                    <thead>
-                        <tr>
-                            <th style="width: 3%;">NO</th>
-                            <th style="width: 15%;">PERGURUAN TINGGI</th>
-                            <th style="width: 15%;">JENIS INOVASI</th>
-                            <th style="width: 30%;">JUDUL</th>
-                            <th style="width: 10%;">TAHUN</th>
-                        </tr>
-                    </thead>
-                </table>
+            <div class="collapse show">
+                <div class="card-body">
+                    <table id="invpt" class="table table-bordered" style="font-size: 14px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 3%;">NO</th>
+                                <th style="width: 15%;">PERGURUAN TINGGI</th>
+                                <th style="width: 15%;">JENIS INOVASI</th>
+                                <th style="width: 30%;">JUDUL</th>
+                                <th style="width: 10%;">TAHUN</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
     <style>
+        /* Bootstrap CSS untuk tabel */
         #invpt {
             width: 100%;
             max-width: 100%;
-            margin-bottom: 1rem;
             background-color: transparent;
-            border-collapse: collapse;
+            border-collapse: separate;
             border-spacing: 0;
             border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 10px;
+            /* Menambahkan lengkungan pada sudut tabel */
+            overflow: hidden;
+            /* Agar sudut lengkung terlihat rapi */
         }
 
         #invpt th,
         #invpt td {
-            padding: 0.75rem;
-            vertical-align: top;
             border-top: 1px solid rgba(0, 0, 0, 0.125);
-        }
-
-        #invpt thead th {
-            vertical-align: bottom;
-            border-bottom: 2px solid rgba(0, 0, 0, 0.125);
-        }
-
-        #invpt tbody+tbody {
-            border-top: 2px solid rgba(0, 0, 0, 0.125);
-        }
-
-        .pagination .page-link {
-            color: black !important;
-        }
-
-        .pagination .page-item.active .page-link {
-            color: white !important;
-        }
-
-        .top-left {
-            float: left;
         }
     </style>
 

@@ -75,38 +75,38 @@
                         <div class="row mt-1 g-5">
                             <div class="col-md-6">
                                 <div class="form-floating form-floating-outline">
-                                    <input class="form-control" type="text" id="namalengkap" name="namalengkap"
-                                        value="Admin Pertama" autofocus />
-                                    <label for="namalengkap">Nama Lengkap</label>
+                                    <input class="form-control" type="text" id="nama_lengkap" name="nama_lengkap"
+                                        value="{{ Auth::user()->nama_lengkap }}" placeholder="{{ Auth::user()->nama_lengkap }}" autofocus />
+                                    <label for="nama_lengkap">Nama Lengkap</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating form-floating-outline">
                                     <input type="text" class="form-control" id="jabatan" name="jabatan"
-                                        value="Ketua Tim Kerja ARMI LLDIKTI 4" />
+                                        value="{{ Auth::user()->jabatan }}" placeholder="{{ Auth::user()->jabatan }}"/>
                                     <label for="jabatan">Jabatan</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating form-floating-outline">
-                                    <input class="form-control" type="text" name="username" id="username"
-                                        value="Admin" />
-                                    <label for="username">Username</label>
+                                    <input class="form-control" type="text" name="user_name" id="user_name"
+                                        value="{{ Auth::user()->user_name }}" placeholder="{{ Auth::user()->user_name }}"/>
+                                    <label for="user_name">Username</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating form-floating-outline">
-                                    <input class="form-control" type="text" id="email" name="email"
-                                        value="admin@gmail.com" placeholder="john.doe@example.com" />
-                                    <label for="email">E-mail</label>
+                                    <input class="form-control" type="text" id="email_address" name="email_address"
+                                        value="{{ Auth::user()->email_address }}" placeholder="{{ Auth::user()->email_address }}" />
+                                    <label for="email_address">Email</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group input-group-merge">
                                     <div class="form-floating form-floating-outline">
-                                        <input type="text" id="nomorhandphone" name="nomorhandphone" class="form-control"
-                                            value="089 626 045 061" />
-                                        <label for="nomorhandphone">Nomor Handphone</label>
+                                        <input type="text" id="no_handphone" name="no_handphone" class="form-control"
+                                            value="{{ Auth::user()->no_handphone }}" placeholder="{{ Auth::user()->no_handphone }}"/>
+                                        <label for="no_handphone">Nomor Handphone</label>
                                     </div>
                                 </div>
                             </div>
@@ -123,16 +123,16 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating form-floating-outline">
-                                    <input class="form-control" type="text" id="iduser" name="iduser"
-                                        value="2734" />
-                                    <label for="iduser">Id User</label>
+                                    <input class="form-control" type="text" id="id_user" name="id_user"
+                                        value="{{ Auth::user()->id_user }}" placeholder="{{ Auth::user()->id_user }}"/>
+                                    <label for="id_user">Id User</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating form-floating-outline">
-                                    <input type="text" class="form-control" id="kodept" name="kodept"
-                                        value="19" maxlength="6" />
-                                    <label for="kodept">Kode PT</label>
+                                    <input type="text" class="form-control" id="kode_pt" name="kode_pt"
+                                        value="{{ Auth::user()->kode_pt }}" placeholder="{{ Auth::user()->kode_pt }}"/>
+                                    <label for="kode_pt">Kode PT</label>
                                 </div>
                             </div>
                             <div class="col-md-12">

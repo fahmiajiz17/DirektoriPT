@@ -23,9 +23,9 @@
     <!-- Card Border Shadow -->
     <div class="row g-6">
         <div class="col-lg-3 col-sm-6">
-            <div class="card card-hover-border-primary mt-4 mt-lg-0 shadow-none" style="border: 1px solid #c7c7c7;">
+            <div class="card" style="border: 1px solid #c7c7c7;">
                 <div class="bg-label-primary position-relative team-image-box"
-                    style="height: 100px; display: flex; justify-content: center; align-items: center;">
+                    style="height: 100px; display: flex; justify-content: center; align-items: center; border-top-left-radius: 10px; border-top-right-radius: 10px;">
                     <img src="../../assets/img/front-pages/landing-page/campus1.png"
                         class="position-absolute card-img-position bottom-0" alt="human image"
                         style="width: 185px; height: auto;" />
@@ -37,9 +37,9 @@
             </div>
         </div>
         <div class="col-lg-3 col-sm-6">
-            <div class="card card-hover-border-danger mt-4 mt-lg-0 shadow-none" style="border: 1px solid #c7c7c7;">
+            <div class="card" style="border: 1px solid #c7c7c7;">
                 <div class="bg-label-danger position-relative team-image-box"
-                    style="height: 100px; display: flex; justify-content: center; align-items: center;">
+                    style="height: 100px; display: flex; justify-content: center; align-items: center; border-top-left-radius: 10px; border-top-right-radius: 10px;">
                     <img src="../../assets/img/front-pages/landing-page/graduation1.png"
                         class="position-absolute card-img-position bottom-0" alt="human image"
                         style="width: 135px; height: auto;" />
@@ -51,9 +51,9 @@
             </div>
         </div>
         <div class="col-lg-3 col-sm-6">
-            <div class="card card-hover-border-success mt-4 mt-lg-0 shadow-none" style="border: 1px solid #c7c7c7;">
+            <div class="card" style="border: 1px solid #c7c7c7;">
                 <div class="bg-label-success position-relative team-image-box"
-                    style="height: 100px; display: flex; justify-content: center; align-items: center;">
+                    style="height: 100px; display: flex; justify-content: center; align-items: center; border-top-left-radius: 10px; border-top-right-radius: 10px;">
                     <img src="../../assets/img/front-pages/landing-page/bentuk1.png"
                         class="position-absolute card-img-position bottom-0" alt="human image"
                         style="width: 155px; height: auto;" />
@@ -65,9 +65,9 @@
             </div>
         </div>
         <div class="col-lg-3 col-sm-6">
-            <div class="card card-hover-border-info mt-4 mt-lg-0 shadow-none" style="border: 1px solid #c7c7c7;">
+            <div class="card" style="border: 1px solid #c7c7c7;">
                 <div class="bg-label-info position-relative team-image-box"
-                    style="height: 100px; display: flex; justify-content: center; align-items: center;">
+                    style="height: 100px; display: flex; justify-content: center; align-items: center; border-top-left-radius: 10px; border-top-right-radius: 10px;">
                     <img src="../../assets/img/front-pages/landing-page/map1.png"
                         class="position-absolute card-img-position bottom-0" alt="human image"
                         style="width: 130px; height: auto;" />
@@ -361,13 +361,15 @@
         </div>
         <!-- End Grafik dan Data -->
 
-        <div class="alert alert-solid-info d-flex align-items-center" role="alert">
-            <span class="alert-icon rounded">
-                <i class="ri-information-line ri-22px"></i>
-            </span>
-            Data di atas adalah Perguruan Tinggi Aktif Versi LLDIKTI Wilayah IV berdasarkan ajuan dari Perguruan
-            Tinggi
-            Swasta di lingkungan LLDIKTI Wilayah IV
+        <div class="col-xl-12">
+            <div class="alert alert-solid-info d-flex align-items-center" role="alert">
+                <span class="alert-icon rounded">
+                    <i class="ri-information-line ri-22px"></i>
+                </span>
+                Data di atas adalah Perguruan Tinggi Aktif Versi LLDIKTI Wilayah IV berdasarkan ajuan dari Perguruan
+                Tinggi
+                Swasta di lingkungan LLDIKTI Wilayah IV
+            </div>
         </div>
 
     </div>

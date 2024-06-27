@@ -44,6 +44,13 @@
             <p class="mb-5">Silahkan masuk ke akun Anda untuk mengakses
                 DirektoriPT LLDIKTI Wilayah 4</p>
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </div>
+            @endif
             @if (\Session::has('message'))
                 <div class="alert alert-danger">
                     {{ \Session::get('message') }}
@@ -53,10 +60,13 @@
             <form method="POST" action="{{ route('postlogin') }}">
                 @csrf
                 <div class="form-floating form-floating-outline mb-5">
-                    <input type="text" class="form-control" id="email" name="email"
-                        value="{{ old('email', Cookie::get('email') ? Cookie::get('email') : '') }}"
-                        placeholder="Masukkan email Anda" autofocus />
-                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="username" name="username"
+                        value="{{ old('username', Cookie::get('username') ? Cookie::get('username') : '') }}"
+                        placeholder="Masukkan Username Anda" autofocus />
+                    <label for="username">Username</label>
+                    @if ($errors->has('username'))
+                        <span class="text-danger">{{ $errors->first('username') }}</span>
+                    @endif
                 </div>
                 <div class="mb-5">
                     <div class="form-password-toggle">
@@ -67,6 +77,9 @@
                                     placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                     aria-describedby="password" />
                                 <label for="password">Password</label>
+                                @if ($errors->has('password'))
+                                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                                @endif
                             </div>
                             <span class="input-group-text cursor-pointer"><i class="ri-eye-off-line"></i></span>
                         </div>

@@ -53,7 +53,7 @@
 
             <!-- Card -->
             <div class="card-body">
-                <table id="prodi" class="table table-bordered table-hover">
+                <table id="prodi" class="table table-bordered ">
                     <thead>
                         <tr>
                             <th style="width: 7%;">No</th>
@@ -73,31 +73,23 @@
     <!-- End Datatable -->
 
     <style>
-        /* Bootstrap CSS untuk tabel */
+       /* Bootstrap CSS untuk tabel */
         #prodi {
             width: 100%;
             max-width: 100%;
-            margin-bottom: 1rem;
             background-color: transparent;
-            border-collapse: collapse;
+            border-collapse: separate;
             border-spacing: 0;
             border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 10px;
+            /* Menambahkan lengkungan pada sudut tabel */
+            overflow: hidden;
+            /* Agar sudut lengkung terlihat rapi */
         }
 
         #prodi th,
         #prodi td {
-            padding: 0.75rem;
-            vertical-align: top;
             border-top: 1px solid rgba(0, 0, 0, 0.125);
-        }
-
-        #prodi thead th {
-            vertical-align: bottom;
-            border-bottom: 2px solid rgba(0, 0, 0, 0.125);
-        }
-
-        #prodi tbody+tbody {
-            border-top: 2px solid rgba(0, 0, 0, 0.125);
         }
     </style>
 
