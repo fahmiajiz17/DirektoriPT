@@ -47,7 +47,7 @@ Route::get('getimpMBKM', [HomepageController::class, 'getimpMBKM'])->name('getim
 Route::get('pemantauanTM', [HomepageController::class, 'pemantauanTM'])->name('pemantauanTM');
 
 // Route Grup Admin
-Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
+Route::group(['middleware' => ['checkApiAuth', 'prevent-back-history']], function () {
     Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard_admin');
 
     // Route Profile Admin

@@ -40,6 +40,8 @@ class MainController extends Controller
         $buffer = curl_exec($curl_handle);
         curl_close($curl_handle);
         $result = json_decode($buffer);
+        $datain = (object)$result;
+
 
         // Log API response for debugging
         Log::info('API Response: ' . print_r($result, true));
