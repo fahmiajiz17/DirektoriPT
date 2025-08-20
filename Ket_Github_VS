@@ -1,4 +1,0 @@
-U (Untracked) = File yang belum pernah dimasukkan ke dalam git (file barui)
-M (Modified) = File yang sudah masuk ke dalam database git dan sudah pernah di modifikasi
-D (Deleted) = File yang dihapus
-A (Added) = File yang ditambahkan ke dalam mode staged
